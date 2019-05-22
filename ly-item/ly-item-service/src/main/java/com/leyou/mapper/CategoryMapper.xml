@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leyou.mapper.CategoryMapper">
+
+    <resultMap id="brandId" type="category">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="parentId" column="parent_id"></result>
+        <result property="isParent" column="is_parent"></result>
+        <result property="sort" column="sort"></result>
+    </resultMap>
+    <select id="queryCategoryListByPid" parameterType="Long" resultMap="brandId">
+        select * from tb_category where parent_id = #{pid}
+    </select>
+
+</mapper>
