@@ -5,6 +5,7 @@ import com.leyou.item.pojo.Brand;
 import com.leyou.item.pojo.Pagination;
 import com.leyou.service.BrandService;
 import com.leyou.web.BrandController;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +60,7 @@ public class BrandControllerImpl implements BrandController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<Void> saveBrand(@RequestBody Brand brand){
+    public ResponseEntity<Void> saveBrand(Brand brand){
         brandService.saveBrand(brand,brand.getCategories());
         System.out.println("brand = " + brand);
         //return ResponseEntity.status(HttpStatus.CREATED).build();

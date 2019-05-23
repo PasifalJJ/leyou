@@ -17,8 +17,9 @@ public enum  ExceptionsEnums {
     //类别不能为空
     CATEGORY_CANNOT_BE_NULL(404,"类别不能为空"),
     //未找到商品
-    CANNOT_FIND_BRAND(404,"未找到品牌")
+    CANNOT_FIND_BRAND(404,"未找到品牌"),
     //private static final ExceptionsEnums e=new ExceptionsEnums (400,"价格不能为空");
+    FILE_UPLOAD_EXCEPTION(500,"文件保存异常")
     ;
     private int code;
     private String msg;

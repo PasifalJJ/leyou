@@ -26,10 +26,9 @@ mybatis:
   type-aliases-package: com.leyou.item.pojo
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level:
     com.leyou: debug
-    org:
-      apache:
-        ibatis: debug
+    org: debug
+

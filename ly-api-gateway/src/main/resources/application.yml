@@ -2,7 +2,7 @@ server:
   port: 10010
 spring:
   application:
-    name: api-geteway
+    name: api-gateway
 eureka:
   client:
     service-url:
@@ -12,17 +12,23 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
+
 zuul:
   prefix: /api # 添加路由前缀
-  retryable: true
+  # retryable: true
   routes:
     item-service: /item/**  #将商品微服务映射到/item/**,所有访问item路径的请求都会映射到item-service微服务
+    upload-service:
+      path: /upload/**
+      serviceId: upload-service
+      strip-prefix: false
+
 ribbon:
-  ConnectTimeout: 250 # 连接超时时间(ms)
-  ReadTimeout: 2000 # 通信超时时间(ms)
+  ConnectTimeout: 1000 # 连接超时时间(ms)
+  ReadTimeout: 3500 # 通信超时时间(ms)
   OkToRetryOnAllOperations: true # 是否对所有操作重试
-  MaxAutoRetriesNextServer: 1 # 同一服务不同实例的重试次数
-  MaxAutoRetries: 1 # 同一实例的重试次数
+  MaxAutoRetriesNextServer: 0 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 0 # 同一实例的重试次数
 hystrix:
   command:
     default:
