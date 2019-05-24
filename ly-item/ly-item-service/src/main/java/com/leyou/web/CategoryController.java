@@ -8,4 +8,6 @@ import java.util.List;
 public interface CategoryController {
     ResponseEntity<List<Category>> queryCategoryListByPid(Long pid);
 
+    ResponseEntity<Category> queryCategoryByBid (Long bid);
+
 }

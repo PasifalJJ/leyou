@@ -30,5 +30,5 @@ mybatis:
 logging:
   level:
     com.leyou: debug
-    org: debug
+
 

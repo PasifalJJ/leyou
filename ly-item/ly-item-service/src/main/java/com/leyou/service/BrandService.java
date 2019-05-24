@@ -7,10 +7,9 @@ import com.leyou.item.pojo.Pagination;
 import java.util.List;
 
 public interface BrandService {
-    Pagination queryPageBrnads(Pagination pagination);
 
     /**
-     * 查询当前页信息
+     * 根据条件查询分页
      * @param search
      * @param page
      * @param rowsPerPage
@@ -18,8 +17,9 @@ public interface BrandService {
      * @param descending
      * @return
      */
-    PageResult<Brand> queryPageBrnads1( String search, Integer page, Integer rowsPerPage,
-                                              String sortBy, Boolean descending);
+    PageResult<Brand> queryPageBrnads(
+            String search, Integer page, Integer rowsPerPage,
+            String sortBy, Boolean descending);
 
     /**
      * 新增品牌
@@ -27,4 +27,6 @@ public interface BrandService {
      * @param categories
      */
     void saveBrand(Brand brand, List<Integer> categories);
+
+    void deleteBrand(Integer id);
 }

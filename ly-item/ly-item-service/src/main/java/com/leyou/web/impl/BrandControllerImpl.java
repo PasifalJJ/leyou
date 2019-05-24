@@ -5,6 +5,7 @@ import com.leyou.item.pojo.Brand;
 import com.leyou.item.pojo.Pagination;
 import com.leyou.service.BrandService;
 import com.leyou.web.BrandController;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,21 +22,6 @@ public class BrandControllerImpl implements BrandController {
     private BrandService brandService;
 
     /**
-     * 查询当前页信息old
-     * @param pagination
-     * @return
-     */
-    @Override
-    @GetMapping("list1")
-    public ResponseEntity<Pagination> queryPageBrnads(Pagination pagination) {
-        if (pagination == null || pagination.getRowsPerpage() == null || pagination.getPage() == null) {
-            return ResponseEntity.ok(null);
-        }
-        pagination = brandService.queryPageBrnads(pagination);
-        return ResponseEntity.ok(pagination);
-    }
-
-    /**
      * 查询当前页信息new 使用分页助手进行查询
      * @param search
      * @param page
@@ -46,12 +32,13 @@ public class BrandControllerImpl implements BrandController {
      */
     @Override
     @GetMapping("list")
-    public ResponseEntity<PageResult<Brand>> queryPageBrnads1(@RequestParam(name = "search",required = false) String search,
+    public ResponseEntity<PageResult<Brand>> queryPageBrnads(@RequestParam(name = "search",required = false) String search,
                                                                     @RequestParam(name = "page", defaultValue = "1") Integer page,
                                                                     @RequestParam(name = "rowsPerPage", defaultValue = "5") Integer rowsPerPage,
                                                                     @RequestParam(name = "sortBy" ,required = false) String sortBy,
                                                                     @RequestParam(name = "descending" ,defaultValue = "false") Boolean descending) {
-        return ResponseEntity.ok(brandService.queryPageBrnads1(search, page, rowsPerPage, sortBy, descending));
+
+        return ResponseEntity.ok(brandService.queryPageBrnads(search, page, rowsPerPage, sortBy, descending));
     }
 
     /**
@@ -59,11 +46,22 @@ public class BrandControllerImpl implements BrandController {
      * @param brand
      * @return
      */
+    @Override
     @PostMapping
     public ResponseEntity<Void> saveBrand(Brand brand){
         brandService.saveBrand(brand,brand.getCategories());
         System.out.println("brand = " + brand);
         //return ResponseEntity.status(HttpStatus.CREATED).build();
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    @DeleteMapping
+    public ResponseEntity<Void> deleteBrand(@RequestParam("id") Integer id){
+        if (id==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        brandService.deleteBrand(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
