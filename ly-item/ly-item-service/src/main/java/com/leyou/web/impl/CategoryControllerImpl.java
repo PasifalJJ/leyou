@@ -25,13 +25,19 @@ public class CategoryControllerImpl implements CategoryController {
      */
     @Override
     @GetMapping("list")
-    public ResponseEntity<List<Category>> queryCategoryListByPid(@RequestParam("pid") Long pid) {
-        return ResponseEntity.ok(categoryservice.queryCategoryListByPid(pid));
+    public ResponseEntity<Category[]> queryCategoryListByPid(@RequestParam("pid") Long pid) {
+        List<Category> categories = categoryservice.queryCategoryListByPid(pid);
+        return ResponseEntity.ok(categories.toArray(new Category[categories.size()]));
     }
 
+    /**
+     * 根据商品id查询分类
+     * @param bid
+     * @return
+     */
     @Override
     @GetMapping("bid/{bid}")
-    public ResponseEntity<Category> queryCategoryByBid(@PathVariable("bid") Long bid) {
+    public ResponseEntity<List<Category>> queryCategoryByBid(@PathVariable("bid") Long bid) {
         return ResponseEntity.ok(categoryservice.queryCategoryByBid(bid));
     }
 }

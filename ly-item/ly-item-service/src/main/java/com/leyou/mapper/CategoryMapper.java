@@ -5,11 +5,12 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import tk.mybatis.mapper.additional.idlist.SelectByIdListMapper;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface CategoryMapper extends Mapper<Category> {
+public interface CategoryMapper extends Mapper<Category>, SelectByIdListMapper<Category,Long> {
 
 
     @Select("select * from tb_category where parent_id = #{pid}")
@@ -28,6 +29,6 @@ public interface CategoryMapper extends Mapper<Category> {
      * @param bid
      * @return
      */
-    @Select("select * from tb_category_brand tcb,tb_category tc where tc.id = #{bid} ")
-    Category queryCategoryByBid(@Param("bid") Long bid);
+    @Select("select * from tb_category_brand tcb,tb_category tc where tcb.category_id = tc.id and tcb.brand_id = #{bid} ")
+    List<Category> queryCategoryByBid(@Param("bid") Long bid);
 }

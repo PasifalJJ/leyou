@@ -6,8 +6,18 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface CategoryController {
-    ResponseEntity<List<Category>> queryCategoryListByPid(Long pid);
+    /**
+     * 根据parentId查询分类
+     * @param pid
+     * @return
+     */
+    ResponseEntity<Category[]> queryCategoryListByPid(Long pid);
 
-    ResponseEntity<Category> queryCategoryByBid (Long bid);
+    /**
+     * 根据商品id查询分类
+     * @param bid
+     * @return
+     */
+    ResponseEntity<List<Category>> queryCategoryByBid (Long bid);
 
 }

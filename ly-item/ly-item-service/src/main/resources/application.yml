@@ -5,7 +5,7 @@ spring:
     name: item-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/heima
+    url: jdbc:mysql://127.0.0.1:3306/heima
     username: root
     password: root
 #    hikari:
@@ -26,9 +26,9 @@ mybatis:
   type-aliases-package: com.leyou.item.pojo
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level:
     com.leyou: debug
-
+    ..: debug
 

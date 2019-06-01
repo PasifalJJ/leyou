@@ -5,7 +5,6 @@ import com.leyou.common.exception.LyException;
 import com.leyou.item.pojo.Category;
 import com.leyou.mapper.CategoryMapper;
 import com.leyou.service.CategoryService;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -31,14 +30,28 @@ public class CategoryServiceImpl implements CategoryService {
         return categories;
     }
 
+    /**
+     * 根据商品id查询分类
+     * @param bid
+     * @return
+     */
     @Override
-    public Category queryCategoryByBid(Long bid) {
+    public List<Category> queryCategoryByBid(Long bid) {
         Category category=new Category();
         category.setId(bid);
-        category = categoryMapper.queryCategoryByBid(bid);
-        if (category == null){
+        List<Category> categories = categoryMapper.queryCategoryListByPid(bid);
+        if (categories == null){
             throw new LyException(ExceptionsEnums.CANNOT_FIND_BRAND);
         }
-        return category;
+        return categories;
+    }
+
+    @Override
+    public List<Category> queryCategoryByCids(List<Long> cids){
+        List<Category> categories = categoryMapper.selectByIdList(cids);
+        if (CollectionUtils.isEmpty(categories)){
+            throw new LyException(ExceptionsEnums.CANNOT_FIND_BRAND);
+        }
+        return categories;
     }
 }

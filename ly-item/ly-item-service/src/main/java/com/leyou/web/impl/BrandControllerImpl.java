@@ -2,11 +2,8 @@ package com.leyou.web.impl;
 
 import com.leyou.common.vo.PageResult;
 import com.leyou.item.pojo.Brand;
-import com.leyou.item.pojo.Pagination;
 import com.leyou.service.BrandService;
 import com.leyou.web.BrandController;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +19,7 @@ public class BrandControllerImpl implements BrandController {
     private BrandService brandService;
 
     /**
-     * 查询当前页信息new 使用分页助手进行查询
+     * 查询每页显示信息或根据条件显示每页查询信息
      * @param search
      * @param page
      * @param rowsPerPage
@@ -48,20 +45,37 @@ public class BrandControllerImpl implements BrandController {
      */
     @Override
     @PostMapping
-    public ResponseEntity<Void> saveBrand(Brand brand){
+    public ResponseEntity<Void> saveOrUpdateBrand(Brand brand){
         brandService.saveBrand(brand,brand.getCategories());
-        System.out.println("brand = " + brand);
         //return ResponseEntity.status(HttpStatus.CREATED).build();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * 根据bid删除商品
+     * @param id
+     * @return
+     */
     @Override
     @DeleteMapping
-    public ResponseEntity<Void> deleteBrand(@RequestParam("id") Integer id){
+    public ResponseEntity<Void> deleteBrand(@RequestParam("id") Long id){
         if (id==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         brandService.deleteBrand(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    @GetMapping("bid/{bid}")
+    public ResponseEntity<Brand> queryBrandByBid(@PathVariable("bid") Long bid){
+        return ResponseEntity.ok(brandService.queryBrandByBid(bid));
+    }
+
+    @Override
+    @GetMapping("cid/{cid}")
+    public ResponseEntity<List<Brand>> queryBrandByCid(@PathVariable Long cid){
+        List<Brand> brands= brandService.queryBrandByCid(cid);
+        return ResponseEntity.ok(brands);
     }
 }
