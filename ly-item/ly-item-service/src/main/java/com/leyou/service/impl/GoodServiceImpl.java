@@ -6,10 +6,7 @@ import com.leyou.common.enums.ExceptionsEnums;
 import com.leyou.common.exception.LyException;
 import com.leyou.common.vo.PageResult;
 import com.leyou.item.ov.SpuBo;
-import com.leyou.item.pojo.Category;
-import com.leyou.item.pojo.Sku;
-import com.leyou.item.pojo.Spu;
-import com.leyou.item.pojo.Stock;
+import com.leyou.item.pojo.*;
 import com.leyou.mapper.SkuMapper;
 import com.leyou.mapper.SpuDetailMapper;
 import com.leyou.mapper.SpuMapper;
@@ -132,6 +129,30 @@ public class GoodServiceImpl implements GoodsService {
                 throw new LyException(ExceptionsEnums.INSERT_STOCK_ERROR);
             }
         }
+    }
 
+    /**
+     * 根据商品id查找SpuDetail
+     * @param id
+     * @return
+     */
+    @Override
+    public SpuDetail querySpuDetailById(Long id) {
+        SpuDetail spuDetail = spuDetailMapper.selectByPrimaryKey(id);
+        if (spuDetail==null){
+            throw new LyException(ExceptionsEnums.CANNOT_FIND_SPUDETAIL);
+        }
+        return spuDetail;
+    }
+
+    @Override
+    public List<Sku> querySkuBySpuId(Long id) {
+        Sku sku=new Sku();
+        sku.setSpuId(id);
+        final List<Sku> skus = skuMapper.select(sku);
+        if (skus==null){
+            throw new LyException(ExceptionsEnums.CANNOT_FIND_SKU);
+        }
+        return skus;
     }
 }

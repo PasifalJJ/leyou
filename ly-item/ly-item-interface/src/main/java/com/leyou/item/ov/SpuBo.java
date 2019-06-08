@@ -5,9 +5,7 @@ import com.leyou.item.pojo.Spu;
 import com.leyou.item.pojo.SpuDetail;
 import lombok.Data;
 
-import javax.persistence.Id;
 import javax.persistence.Transient;
-import java.io.Serializable;
 import java.util.List;
 
 @Data

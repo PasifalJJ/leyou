@@ -20,6 +20,9 @@ public enum  ExceptionsEnums {
     CANNOT_FIND_BRAND(404,"未找到品牌"),
     CANNOT_FIND_SPECIFICATION(404,"未找到规格参数"),
     CANNOT_FIND_SPU(404,"未找到spu参数"),
+    CANNOT_FIND_SPUDETAIL(404,"未找到spu详情"),
+    CANNOT_FIND_SKU(404,"未能找到sku"),
+    CANNOT_PACK_JSON(500,"不能封装成json数据"),
     CATEGORY_HAVE_NOT_SPECIFICATION(404,"分类未找到规格参数"),
     SAVE_SPECIFICATION_ERROR(500,"保存规格失败"),
     UPDATE_SPECIFICATION_ERROR(500,"更新商品规格失败"),
@@ -33,6 +36,7 @@ public enum  ExceptionsEnums {
     INSERT_SPUDETAIL_ERROR(500,"保存SpuDetail数据失败"),
     INSERT_SKULIST_ERROR(500,"保存sku集合失败"),
     INSERT_STOCK_ERROR(500,"保存库存错误"),
+    JSON_TO_MAP_ERROR(500,"json转换map错误"),
 
     ;
     private int code;

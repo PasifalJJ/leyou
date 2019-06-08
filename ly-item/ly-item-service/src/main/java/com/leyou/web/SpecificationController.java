@@ -1,8 +1,11 @@
 package com.leyou.web;
 
+import com.leyou.item.ov.SpuBo;
 import com.leyou.item.pojo.Specification;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface SpecificationController {
 
@@ -26,4 +29,5 @@ public interface SpecificationController {
      * @return
      */
     ResponseEntity<Void> updateSpecification(Specification specification);
+
 }

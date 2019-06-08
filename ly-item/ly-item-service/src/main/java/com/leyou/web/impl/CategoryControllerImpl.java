@@ -1,9 +1,12 @@
 package com.leyou.web.impl;
 
+import com.leyou.common.enums.ExceptionsEnums;
+import com.leyou.common.exception.LyException;
 import com.leyou.item.pojo.Category;
 import com.leyou.service.CategoryService;
 import com.leyou.web.CategoryController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +42,19 @@ public class CategoryControllerImpl implements CategoryController {
     @GetMapping("bid/{bid}")
     public ResponseEntity<List<Category>> queryCategoryByBid(@PathVariable("bid") Long bid) {
         return ResponseEntity.ok(categoryservice.queryCategoryByBid(bid));
+    }
+
+    /**
+     * 根据cid的集合，查询分类集合
+     * @param ids
+     * @return
+     */
+    @Override
+    @GetMapping("names")
+    public ResponseEntity<List<Category>> queryCategoryCyBids(@RequestParam("ids") List<Long> ids){
+        if (ids==null || ids.size()<1){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(categoryservice.queryCategoryByCids(ids));
     }
 }

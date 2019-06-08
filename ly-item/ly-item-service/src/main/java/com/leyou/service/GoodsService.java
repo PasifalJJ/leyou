@@ -2,7 +2,11 @@ package com.leyou.service;
 
 import com.leyou.common.vo.PageResult;
 import com.leyou.item.ov.SpuBo;
+import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.Spu;
+import com.leyou.item.pojo.SpuDetail;
+
+import java.util.List;
 
 public interface GoodsService {
     /**
@@ -22,4 +26,8 @@ public interface GoodsService {
      * @param spuBo
      */
     void saveGoods(SpuBo spuBo);
+
+    SpuDetail querySpuDetailById(Long id);
+
+    List<Sku> querySkuBySpuId(Long id);
 }

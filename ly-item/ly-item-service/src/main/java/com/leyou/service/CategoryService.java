@@ -20,4 +20,5 @@ public interface CategoryService {
     List<Category> queryCategoryByBid(Long bid);
 
     List<Category> queryCategoryByCids(List<Long> cids);
+
 }

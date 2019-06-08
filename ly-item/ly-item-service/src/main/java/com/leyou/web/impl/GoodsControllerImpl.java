@@ -4,13 +4,17 @@ import com.leyou.common.enums.ExceptionsEnums;
 import com.leyou.common.exception.LyException;
 import com.leyou.common.vo.PageResult;
 import com.leyou.item.ov.SpuBo;
+import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.Spu;
+import com.leyou.item.pojo.SpuDetail;
 import com.leyou.service.GoodsService;
 import com.leyou.web.GoodsController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -37,6 +41,11 @@ public class GoodsControllerImpl implements GoodsController {
         return ResponseEntity.ok(pageResultSpu);
     }
 
+    /**
+     * 保存商品信息
+     * @param spuBo
+     * @return
+     */
     @Override
     @PostMapping("goods")
     public ResponseEntity<Void> saveGoods(@RequestBody SpuBo spuBo){
@@ -46,4 +55,27 @@ public class GoodsControllerImpl implements GoodsController {
         goodsService.saveGoods(spuBo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    /**
+     * 根据spu的id查询商品详情
+     * @return
+     */
+    @Override
+    @GetMapping("/spu/detail/{id}")
+    public ResponseEntity<SpuDetail> querySpuDetailById(@PathVariable("id") Long id){
+        return ResponseEntity.ok(goodsService.querySpuDetailById(id));
+    }
+
+    /**
+     * 根据spuid查询sku集合
+     * @param id
+     * @return
+     */
+    @Override
+    @GetMapping("sku/list")
+    public ResponseEntity<List<Sku>> querySkuBySpuId(@RequestParam("id") Long id){
+        return ResponseEntity.ok(goodsService.querySkuBySpuId(id));
+    }
+
+
 }

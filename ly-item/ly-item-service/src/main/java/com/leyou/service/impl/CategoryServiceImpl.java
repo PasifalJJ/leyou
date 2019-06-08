@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> queryCategoryByBid(Long bid) {
         Category category=new Category();
         category.setId(bid);
-        List<Category> categories = categoryMapper.queryCategoryListByPid(bid);
+        List<Category> categories = categoryMapper.queryCategoryByBid(bid);
         if (categories == null){
             throw new LyException(ExceptionsEnums.CANNOT_FIND_BRAND);
         }

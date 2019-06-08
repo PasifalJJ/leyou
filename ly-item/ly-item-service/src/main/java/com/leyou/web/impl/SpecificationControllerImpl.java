@@ -1,5 +1,6 @@
 package com.leyou.web.impl;
 
+import com.leyou.item.ov.SpuBo;
 import com.leyou.item.pojo.Specification;
 import com.leyou.service.SpecificationService;
 import com.leyou.web.SpecificationController;
@@ -20,11 +21,18 @@ public class SpecificationControllerImpl implements SpecificationController {
      * @param cid
      * @return
      */
+    @Override
     @GetMapping("{cid}")
     public ResponseEntity<String> querySpecification(@PathVariable("cid") Long cid){
        return ResponseEntity.ok(specificationService.querySpecification(cid));
     }
 
+    /**
+     * 保存商品规格
+     * @param specification
+     * @return
+     */
+    @Override
     @PostMapping
     public ResponseEntity<Void> saveSpecification(Specification specification){
         specificationService.saveSpecification(specification);
